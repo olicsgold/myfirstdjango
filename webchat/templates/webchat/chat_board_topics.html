@@ -1,0 +1,37 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="chat-topic">
+    <h1>{{ chat_topic.subject }}</h1>
+    <p><strong>Started by:</strong> {{ chat_topic.boardStarter.username }} | <strong>Last Updated:</strong> {{ chat_topic.lastUpdate }}</p>
+    <p><strong>Board:</strong> {{ chat_topic.boardname.name }}</p>
+    
+    <hr>
+
+    <h2>Posts:</h2>
+    {% if posts %}
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <p><strong>{{ post.createdBy.username }}:</strong> {{ post.message }}</p>
+                    <p><em>Posted on: {{ post.createdAt }}</em></p>
+                    {% if post.updatedAt %}
+                        <p><em>Updated on: {{ post.updatedAt }}</em></p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No posts yet. Be the first to post!</p>
+    {% endif %}
+
+    <hr>
+
+    <h3>Add a Post:</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <textarea name="message" rows="4" cols="50" required placeholder="Write your message here..."></textarea><br>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

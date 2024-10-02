@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Chat Boards</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Adjust the path if necessary -->
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Chat Boards</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Available Chat Boards</h2>
+            <ul>
+                {% for board in chat_boards %}
+                    <li>
+                        <a href="{% url 'board_topic' board.pk %}">{{ board.name }}</a>
+                        <p>{{ board.details }}</p>  <!-- Display board details -->
+                    </li>
+                {% empty %}
+                    <li>No chat boards available.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Chat Application</p>
+    </footer>
+</body>
+</html>
